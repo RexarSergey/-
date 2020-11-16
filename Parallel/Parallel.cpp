@@ -12,8 +12,8 @@
 
 	Вариант 14
 	Определить множество индексов i, для которых A[i] и B[i] не имеют
-	общих делителей (единицу в роли делителя не рассматривать). 
-	Входные данные: массивы целых положительных чисел А и B, произвольной длины ≥1000. 
+	общих делителей (единицу в роли делителя не рассматривать).
+	Входные данные: массивы целых положительных чисел А и B, произвольной длины ≥1000.
 	Количество потоков является входным параметром
 */
 
@@ -106,12 +106,30 @@ std::vector<int> create_vector(const int& max_length, const int& max_value) {
 /// </summary>
 /// <param name="arr"> массив </param>
 /// <param name="name"> название </param>
-void write_array(const std::vector<int>& arr, char name) {
+void write_array(const std::vector<int>& A, const std::vector<int>& B) {
 
-	std::cout << "Array " << name << ":\n";
-	for (int i = 0; i < arr.size(); i++)
-		std::cout << name << '[' << i << ']' << " = " << arr[i] << '\n';
-	std::cout << '\n';
+	std::cout << "Array A:" << '\t' << "Array B:\n";
+	for (int i = 0; i < std::min(A.size(), B.size()); i++)
+		std::cout << "A[" << i << ']' << " = " << A[i] << '\t' << "B[" << i << ']' << " = " << B[i] << '\n';
+	for (int i = std::min(A.size(), B.size()); i < std::max(A.size(), B.size()); i++)
+		std::cout << '\t' << '\t' << "B[" << i << ']' << " = " << B[i] << '\n';
+}
+
+/// <summary>
+/// Алгоритм евклида
+/// </summary>
+/// <param name="a"> первая переменная </param>
+/// <param name="b"> вторая переменная </param>
+/// <returns></returns>
+bool evk(int a, int b) {
+	while (a != 0 && b != 0) {
+		if (a > b && b > 0)
+			a %= b;
+		else
+			if (a > 0)
+				b %= a;
+	}
+	return a == 1 || b == 1;
 }
 
 /// <summary>
@@ -134,13 +152,7 @@ std::vector<int> Threads(const std::vector<int>& A, const std::vector<int>& B, s
 	//Проверяем на наличие общих делитилей не считая 1
 	for (size_t i = start; i < a.size() && i < b.size() && i < start + length; i++)
 	{
-		while (a[i] != b[i]) {
-			if (a[i] > b[i])
-				a[i] -= b[i];
-			else
-				b[i] -= a[i];
-		}
-		if (a[i] == 1)
+		if (evk(a[i], b[i]))
 			answer.push_back(i);
 	}
 	return answer;
@@ -163,8 +175,7 @@ int main()
 		int thread_count = t_count(std::min(A.size(), B.size()));
 
 		//Выводим значение массивов в консоль
-		write_array(A, 'A');
-		write_array(B, 'B');
+		write_array(A, B);
 
 		//Вектор индексов
 		std::vector<int> answer;
