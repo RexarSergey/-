@@ -1,0 +1,4 @@
+﻿  Parallel.cpp
+C:\Users\DW995\Desktop\Потоки\Parallel\Parallel.cpp(112,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\DW995\Desktop\Потоки\Parallel\Parallel.cpp(151,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Parallel.vcxproj -> C:\Users\DW995\Desktop\Потоки\Parallel\Debug\Parallel.exe

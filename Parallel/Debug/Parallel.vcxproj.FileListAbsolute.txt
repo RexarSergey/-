@@ -1,0 +1,2 @@
+C:\Users\DW995\Desktop\Потоки\Parallel\Debug\Parallel.exe
+C:\Users\DW995\Desktop\Потоки\Parallel\Debug\Parallel.pdb
